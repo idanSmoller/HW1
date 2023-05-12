@@ -27,7 +27,7 @@ public class Search {
      * Performs a Greedy Best First Search, using node heuristic function.
      *
      * @param boardString String representing the initial board
-     * @return List of actions which performing them will lead to the the goal state
+     * @return List of actions which performing them will lead to the goal state
      */
     public List<Action> search(String boardString) {
         try {
