@@ -4,6 +4,20 @@ public class Action {
     Tile tile;
     Direction dir;
 
+    public Action(Tile tile, Direction dir) {
+        this.tile = tile;
+        this.dir = dir;
+    }
+
+
+    public Tile getTile() {
+        return tile;
+    }
+
+    public Direction getDirection() {
+        return dir;
+    }
+
     @Override
     public String toString() {
         String ret = "";

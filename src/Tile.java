@@ -4,9 +4,18 @@ public class Tile {
 
     public final int value;
 
-    public Tile(int num) {
-        this.value = num;
+    public Tile(boolean is_empty, int num) {
+        this.value = is_empty ? this.EMPTY : num;
     }
+
+    public int getValue() {
+        return this.value;
+    }
+
+    public boolean isEmpty() {
+        return this.value == this.EMPTY;
+    }
+
 
     @Override
     public String toString() {
