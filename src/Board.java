@@ -32,6 +32,18 @@ public class Board {
         }
     }
 
+    public int getDimX() {
+        return this.tiles[0].length;
+    }
+
+    public int getDimY() {
+        return this.tiles.length;
+    }
+
+    public Tile tileAt(int row, int col) {
+        return this.tiles[row][col];
+    }
+
     private void setEmptyX(int emptyX) {
         this.emptyX = emptyX;
     }

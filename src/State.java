@@ -9,6 +9,10 @@ public class State {
         this.board = brd;
     }
 
+    public Board getBoard() {
+        return this.board;
+    }
+
     public boolean isGoal() {
         return this.board.isGoal();
     }
