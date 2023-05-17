@@ -1,11 +1,11 @@
 public class Tile {
-    public final int EMPTY = 0;
+    public static final int EMPTY = 0;
     public final String EMPTY_STR_REP = "_";
 
-    public final int value;
+    private final int value;
 
-    public Tile(boolean is_empty, int num) {
-        this.value = is_empty ? this.EMPTY : num;
+    public Tile(int num) {
+        this.value = num;
     }
 
     public int getValue() {

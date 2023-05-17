@@ -15,7 +15,6 @@ public class State {
 
     public Action[] actions() {
         return board.actions();
-        // TODO: to check that there no duplicates of states at the set (different reference, same values)
     }
 
     public State result(Action action) {

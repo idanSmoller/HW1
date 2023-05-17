@@ -2,15 +2,14 @@ import java.util.Arrays;
 
 public class Board {
     private static final String INPUT_EMPTY = "_";
-    private static final String INPUT_NEW_LINE = "|";
+    private static final String INPUT_NEW_LINE = "\\|";
     private static final String INPUT_NEW_TILE = " ";
     private Tile[][] tiles;
     private int emptyX;
     private int emptyY;
 
-    public Board(int emptyX, int emptyY) {
-        this.emptyX = emptyX;
-        this.emptyY = emptyY;
+    public Board(int numOfRow, int numOfCol) {
+        this.tiles = new Tile[numOfRow][numOfCol];
     }
 
     public Board(String str) {
@@ -21,28 +20,39 @@ public class Board {
             curRowStr = rowsStr[i].split(INPUT_NEW_TILE);
             this.tiles[i] = new Tile[curRowStr.length];
             for(int j = 0; j < curRowStr.length; j++) {
-                if (curRowStr[j] == INPUT_EMPTY) {
-                    this.tiles[i][j] = new Tile(true, 0);
+                if (curRowStr[j].equals(INPUT_EMPTY)) {
+                    this.tiles[i][j] = new Tile(Tile.EMPTY);
                     this.emptyX = j;
                     this.emptyY = i;
                 }
                 else {
-                    this.tiles[i][j] = new Tile(false, Integer.parseInt(curRowStr[j]));
+                    this.tiles[i][j] = new Tile(Integer.parseInt(curRowStr[j]));
                 }
             }
         }
+    }
+
+    private void setEmptyX(int emptyX) {
+        this.emptyX = emptyX;
+    }
+
+    private void setEmptyY(int emptyY) {
+        this.emptyY = emptyY;
     }
 
     public boolean isGoal() {
         int counter = 1;
         for (int i = 0; i < this.tiles.length; i++) {
             for (int j = 0; j < this.tiles[0].length; j++){
-                if (!this.tiles[i][j].isEmpty()) {
-                    if (counter != this.tiles[i][j].getValue()) {
-                        return false;
-                    }
-                    counter++;
+                //check last tile
+                if (i == this.tiles.length - 1 && j == this.tiles[0].length - 1 && this.tiles[i][j].isEmpty()) {
+                    return true;
                 }
+
+                if (this.tiles[i][j].getValue() != counter) {
+                    return false;
+                }
+                counter++;
             }
         }
         return true;
@@ -58,7 +68,7 @@ public class Board {
 
 
     public Action getActionIfPossible(int addXToEmpty, int addYToEmpty, Direction dir) {
-        if (this.isActionPossible(0, -1)) {
+        if (this.isActionPossible(addXToEmpty, addYToEmpty)) {
             return new Action(this.tiles[emptyY + addYToEmpty][emptyX + addXToEmpty], dir);
         }
         return null;
@@ -73,15 +83,15 @@ public class Board {
         allActions[2] = getActionIfPossible(-1, 0, Direction.RIGHT);
         allActions[3] = getActionIfPossible(1, 0, Direction.LEFT);
         // finds how many actions are possible
-        int counter = 0;
+        int possibleActionsCounter = 0;
         for (int i = 0; i < allActions.length; i++) {
             if (allActions[i] != null) {
-                counter++;
+                possibleActionsCounter++;
             }
         }
         // move the possible actions to array at the right size
-        counter = 0;
-        Action[] realActions = new Action[counter];
+        int counter = 0;
+        Action[] realActions = new Action[possibleActionsCounter];
         for (int i = 0; i < allActions.length; i++) {
             if (allActions[i] != null) {
                 realActions[counter] = allActions[i];
@@ -94,7 +104,9 @@ public class Board {
 
     public Board realCopy() {
         // mention: don't create new tiles. Just put the references of the current ones on another Board
-        Board temp = new Board(this.emptyX, this.emptyY);
+        Board temp = new Board(this.tiles.length, this.tiles[0].length);
+        temp.setEmptyX(this.emptyX);
+        temp.setEmptyY(this.emptyY);
         for (int i = 0; i < this.tiles.length; i++) {
             for (int j = 0; j < this.tiles[0].length; j++) {
                 temp.tiles[i][j] = this.tiles[i][j];
@@ -106,9 +118,9 @@ public class Board {
 
     public Board result(Action action) {
         Board temp = this.realCopy();
-        int addX, addY;
+        int addX = 0, addY = 0;
         switch(action.getDirection()){
-            case UP:     //TODO: why not Direction.UP?
+            case UP:
                 addX = 0;
                 addY = -1;
                 break;
@@ -125,8 +137,7 @@ public class Board {
                 addY = 0;
                 break;
             default:
-                addX = 99999;
-                addY = 99999;
+                System.out.println("Impossible!");
         }
         temp.tiles[temp.emptyY - addY][temp.emptyX - addX] = temp.tiles[temp.emptyY][temp.emptyX];
         temp.tiles[temp.emptyY][temp.emptyX] = action.getTile();  // function changes only references, except this tile
