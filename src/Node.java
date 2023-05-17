@@ -1,12 +1,28 @@
 public class Node {
-    private Action action;
+    private Action action;  // null if the root
     private State currState;
-    private Node parent;
+    private Node parent;   // null if the root
 
     public Node(Action action, State currState, Node parent) {
         this.action = action;
         this.currState = currState;
         this.parent = parent;
+    }
+
+    public Node(String boardInitStr) {     // initial the root Node
+        this(null, new State(boardInitStr), null);
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public State getState() {
+        return currState;
+    }
+
+    public Node getParent() {
+        return parent;
     }
 
     public Node[] expand() {
@@ -20,7 +36,7 @@ public class Node {
         return ret;
     }
 
-    public int huristicValue() {
+    public int heuristicValue() {
         return 0; // TODO: this function
     }
 }

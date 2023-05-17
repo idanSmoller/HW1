@@ -1,25 +1,25 @@
 public class State {
-    private Board brd;
+    private Board board;
 
     public State(String str) {
-        this.brd  = new Board(str);
+        this.board  = new Board(str);
     }
 
     public State(Board brd) {
-        this.brd = brd;
+        this.board = brd;
     }
 
     public boolean isGoal() {
-        return this.brd.isGoal();
+        return this.board.isGoal();
     }
 
     public Action[] actions() {
-        return brd.actions();
+        return board.actions();
         // TODO: to check that there no duplicates of states at the set (different reference, same values)
     }
 
     public State result(Action action) {
-        return new State(this.brd.result(action));
+        return new State(this.board.result(action));
     }
 
 

@@ -19,6 +19,7 @@ public class Search {
      * @return The root node used to search for a solution
      */
     private Node getRoot(String boardString) {
+        return new Node(boardString);
         // TODO: Implement this function.
         // NOTE: This is the only function you need to modify in this class!
     }
@@ -27,7 +28,7 @@ public class Search {
      * Performs a Greedy Best First Search, using node heuristic function.
      *
      * @param boardString String representing the initial board
-     * @return List of actions which performing them will lead to the goal state
+     * @return List of actions which performing them will lead to the the goal state
      */
     public List<Action> search(String boardString) {
         try {

@@ -108,19 +108,19 @@ public class Board {
         Board temp = this.realCopy();
         int addX, addY;
         switch(action.getDirection()){
-            case Direction.UP:
+            case UP:     //TODO: why not Direction.UP?
                 addX = 0;
                 addY = -1;
                 break;
-            case Direction.DOWN:
+            case DOWN:
                 addX = 0;
                 addY = 1;
                 break;
-            case Direction.RIGHT:
+            case RIGHT:
                 addX = 1;
                 addY = 0;
                 break;
-            case Direction.LEFT:
+            case LEFT:
                 addX = -1;
                 addY = 0;
                 break;
