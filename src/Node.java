@@ -36,24 +36,24 @@ public class Node {
         return ret;
     }
 
-    public double distanceFromHome(int value, int row, int col) {
+    public int distanceFromHome(int value, int row, int col) {
         int homeRow = (value - 1) / this.currState.getBoard().getDimX();
         int homeCol = (value - 1) % this.currState.getBoard().getDimX();
 
-        int vertDistance = homeRow - row;
-        int horDistance = homeCol - col;
-        return Math.sqrt((vertDistance * vertDistance) + (horDistance * horDistance));
+        int vertDistance = Math.abs(homeRow - row);
+        int horDistance = Math.abs(homeCol - col);
+        return  vertDistance + horDistance;
     }
 
     public int heuristicValue() {
-        double sum = 0;
+        int sum = 0;
         for (int i = 0; i < this.currState.getBoard().getDimX(); i++) {
             for (int j = 0; j < this.currState.getBoard().getDimY(); j++) {
-                double dist = distanceFromHome(this.currState.getBoard().tileAt(j, i).getValue(), j, i);
-                sum += dist * dist;
+                int dist = distanceFromHome(this.currState.getBoard().tileAt(j, i).getValue(), j, i);
+                sum += dist;
             }
         }
 
-        return (int)(sum * 10000);
+        return sum;
     }
 }
