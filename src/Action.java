@@ -4,6 +4,11 @@ public class Action {
     Tile tile;
     Direction dir;
 
+    /**
+     * Action constructor
+     * @param tile the tile to  move
+     * @param dir the direction to move the tile
+     */
     public Action(Tile tile, Direction dir) {
         this.tile = tile;
         this.dir = dir;

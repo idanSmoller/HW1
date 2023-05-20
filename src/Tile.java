@@ -4,6 +4,10 @@ public class Tile {
 
     private final int value;
 
+    /**
+     * Tile constructor
+     * @param num the tile's value
+     */
     public Tile(int num) {
         this.value = num;
     }
@@ -12,8 +16,12 @@ public class Tile {
         return this.value;
     }
 
+    /**
+     * check whether the tile is considered an empty tile
+     * @return whether the tile is considered an empty tile
+     */
     public boolean isEmpty() {
-        return this.value == this.EMPTY;
+        return this.value == EMPTY;
     }
 
 

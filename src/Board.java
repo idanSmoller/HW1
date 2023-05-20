@@ -8,10 +8,19 @@ public class Board {
     private int emptyX;
     private int emptyY;
 
+    /**
+     * Board constructor
+     * @param numOfRow the number of rows the board has
+     * @param numOfCol the number of columns the board has
+     */
     public Board(int numOfRow, int numOfCol) {
         this.tiles = new Tile[numOfRow][numOfCol];
     }
 
+    /**
+     * Board constructor
+     * @param str the string representation of a game board
+     */
     public Board(String str) {
         String[] rowsStr = str.split(INPUT_NEW_LINE);
         this.tiles = new Tile[rowsStr.length][];
@@ -40,6 +49,12 @@ public class Board {
         return this.tiles.length;
     }
 
+    /**
+     * get the tile from the indexes
+     * @param row the tile's row
+     * @param col the tile's column
+     * @return the tile at the requested position
+     */
     public Tile tileAt(int row, int col) {
         return this.tiles[row][col];
     }
@@ -52,6 +67,10 @@ public class Board {
         this.emptyY = emptyY;
     }
 
+    /**
+     * check whether the game is over
+     * @return whether the game is over
+     */
     public boolean isGoal() {
         int counter = 1;
         for (int i = 0; i < this.tiles.length; i++) {
@@ -71,6 +90,12 @@ public class Board {
     }
 
 
+    /**
+     * check whether an action is possible to preform
+     * @param addXToEmpty the offset to add to the X dimension of the empty tile
+     * @param addYToEmpty the offset to add to the Y dimension of the empty tile
+     * @return
+     */
     public boolean isActionPossible(int addXToEmpty, int addYToEmpty) {
         int wantedEmptyX = this.emptyX + addXToEmpty;
         int wantedEmptyY = this.emptyY + addYToEmpty;
@@ -79,6 +104,14 @@ public class Board {
     }
 
 
+    //TODO: check if the documentation is right
+    /**
+     * check whether an action is possible to preform and return it (if impossible return null)
+     * @param addXToEmpty the offset to add to the X dimension of the empty tile
+     * @param addYToEmpty the offset to add to the Y dimension of the empty tile
+     * @param dir the direction to move the empty tile
+     * @return the action of the move (if impossible null returned)
+     */
     public Action getActionIfPossible(int addXToEmpty, int addYToEmpty, Direction dir) {
         if (this.isActionPossible(addXToEmpty, addYToEmpty)) {
             return new Action(this.tiles[emptyY + addYToEmpty][emptyX + addXToEmpty], dir);
@@ -87,6 +120,10 @@ public class Board {
     }
 
 
+    /**
+     * get all possible actions from the board
+     * @return all possible actions from the board
+     */
     public Action[] actions() {
         // finds all possible actions (if not possible, so null)
         Action[] allActions = new Action[4];

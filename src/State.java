@@ -13,14 +13,27 @@ public class State {
         return this.board;
     }
 
+    /**
+     * check whether the game is over
+     * @return whether the game is over
+     */
     public boolean isGoal() {
         return this.board.isGoal();
     }
 
+    /**
+     * get all possible actions from the board
+     * @return all possible actions from the board
+     */
     public Action[] actions() {
         return board.actions();
     }
 
+    /**
+     * get the state resulting from an action on the current state
+     * @param action the action to preform
+     * @return the state resulting from an action on the current state
+     */
     public State result(Action action) {
         return new State(this.board.result(action));
     }
